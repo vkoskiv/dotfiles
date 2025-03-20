@@ -40,7 +40,7 @@ shopt -s histappend
 export GPG_TTY=$(tty)
 export PATH=$PATH:/usr/local/musl/bin/:/home/vkoskiv/.cargo/bin/:/home/vkoskiv/.bin/
 
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dotfile='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias hx='helix'
 alias p3='python3'
 
