@@ -52,3 +52,5 @@ export SHOT_WWW_PATH=/var/www/vkoskiv/screenshots/
 export SHOT_URL_BASE=https://vkoskiv.com/screenshots/
 
 export LS_COLORS="$(vivid generate one-dark)"
+source ~/.bash_preexec.sh
+eval "$(atuin init bash)"
