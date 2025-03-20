@@ -1,0 +1,16 @@
+theme = "onedark"
+[editor]
+soft-wrap.enable = true
+line-number = "relative"
+end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+cursor-line = "error"
+
+[keys.normal]
+#space.o = ":sh ls"
+#y = "yank_main_selection_to_clipboard"
+#p = "paste_clipboard_before"
+
+[editor.cursor-shape]
+insert = "bar"

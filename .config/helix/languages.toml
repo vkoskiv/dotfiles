@@ -1,0 +1,38 @@
+[language-server.gpt]
+command = "helix-gpt"
+args = ["--handler", "openai"]
+
+[language-server.c]
+command = "clangd"
+args = ["-header-insertion=never"]
+
+[[language]]
+name = "c"
+indent = { tab-width = 4, unit = "\t" }
+# language-servers = ["c", "gpt"]
+language-servers = ["c"]
+[[language]]
+name = "cpp"
+indent = { tab-width = 4, unit = "\t" }
+language-servers = ["c"]
+[[language]]
+name = "json"
+indent = { tab-width = 4, unit = "\t" }
+[[language]]
+name = "python"
+indent = { tab-width = 4, unit = "\t" }
+[[language]]
+name = "javascript"
+indent = { tab-width = 4, unit = "\t" }
+
+[[language]]
+name = "objc"
+grammar = "objc"
+file-types = ["m"]
+language-servers = ["clangd"]
+scope = "source.objc"
+roots = ["Makefile", "CMakeLists.txt"]
+
+[[grammar]]
+name = "objc"
+source = {git="https://github.com/tree-sitter-grammars/tree-sitter-objc.git",rev="master"}
