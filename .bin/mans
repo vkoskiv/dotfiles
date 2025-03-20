@@ -1,0 +1,8 @@
+#!/bin/bash
+# Quick fzf search for manpages, with live preview
+SECTION="$1"
+PAGE=$(apropos -s "$SECTION" . | fzf --preview='echo "{1}.{2}" | tr -d "()" | xargs man')
+if [ ! -z "$PAGE" ]; then
+	echo "$PAGE" | awk '{print $1"."$2}' | tr -d '()' | xargs man
+fi
+

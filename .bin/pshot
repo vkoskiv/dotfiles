@@ -1,0 +1,97 @@
+#!/bin/sh
+
+set -e
+
+# This script grabs a screenshot and copies it to a webserver.
+# Optionally, you can pass a path to a file, and that is uploaded instead.
+# Depends on:
+# xdg-open(1)
+# maim(1) on Xorg, or
+# grim(1), slurp(1) on wayland
+
+# Export the following variables
+# SHOT_HOST - host to scp the file onto
+# SHOT_WWW_PATH - Absolute path to www dir on that host
+# SHOT_URL_BASE - URL you've assigned to that directory
+# In my .bashrc, for example:
+# export SHOT_HOST=triton
+# export SHOT_WWW_PATH=/var/www/vkoskiv/screenshots/
+# export SHOT_URL_BASE=https://vkoskiv.com/screenshots/
+
+X11_DEPS="xdg-open maim"
+WAYLAND_DEPS="xdg-open grim slurp"
+
+if [ -z "${SHOT_HOST}" ]; then
+  echo "SHOT_HOST not set"
+  exit 1
+fi
+
+if [ -z "${SHOT_WWW_PATH}" ]; then
+  echo "SHOT_WWW_PATH not set"
+  exit 1
+fi
+
+if [ -z "${SHOT_URL_BASE}" ]; then
+  echo "SHOT_URL_BASE not set"
+  exit 1
+fi
+
+y_n() {
+  while true; do
+    printf "%s [y/n] " "$*" >&2
+    read -r yn
+    case $yn in
+      [Yy]*) return 0 ;;
+      [Nn]*) return 1 ;;
+    esac
+  done
+}
+
+check_deps() {
+  for dep in $1; do
+    if test ! -f "$(which $dep 2>/dev/null)"; then
+      echo "$dep(1) not installed"
+      return 1
+    fi
+  done
+  return 0
+}
+
+take_screenshot() {
+  FILENAME=$(mktemp "/tmp/$(date -u +%Y-%m-%dT%H:%M:%S%Z)"-XXXXXXXX.png)
+  case $XDG_SESSION_TYPE in
+    "x11")
+      maim -sq > "$FILENAME"
+    ;;
+    "wayland")
+      grim -g "$(slurp)" - > "$FILENAME"
+    ;;
+  esac
+  chmod 644 "$FILENAME"
+  echo "$FILENAME"
+}
+
+publish() {
+  y_n "Publish $1?"\
+    && scp "$1" "${SHOT_HOST}":"${SHOT_WWW_PATH}"\
+    && xdg-open "${SHOT_URL_BASE}$(basename "$1")"\
+    && echo "Published ${SHOT_URL_BASE}$(basename "$1")"
+}
+
+case $XDG_SESSION_TYPE in
+  "x11") check_deps "$X11_DEPS" || exit 1 ;;
+  "wayland") check_deps "$WAYLAND_DEPS" || exit 1 ;;
+  *) echo "This script works with X11 and Wayland, but you are running '$XDG_SESSION_TYPE'" && exit 1 ;;
+esac
+
+if [ $# -eq 0 ]; then
+  FILE=$(take_screenshot)
+  publish "$FILE"
+  unlink "$FILE"
+else
+  # FILE="$1"
+  FILENAME=$(mktemp "/tmp/$(date -u +%Y-%m-%dT%H:%M:%S%Z)-XXXXXXXX-$(basename "$1")")
+  cp "$1" "$FILENAME"
+  chmod 644 "$FILENAME"
+  publish "$FILENAME"
+fi
