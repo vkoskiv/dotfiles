@@ -61,4 +61,7 @@ xset s noblank
 # Do we want to do this in .i3/config instead?
 xrandr --output DP-4 --mode 2560x1440 --rate 143.86 --pos 0x354
 xrandr --output HDMI-0 --right-of DP-4 --rotate right --pos 2560x0
+if [ "$(hostname)" = "s2110" ]; then
+	setxkbmap fi
+fi
 exec i3
