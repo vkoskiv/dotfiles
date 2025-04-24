@@ -3,6 +3,7 @@ theme = "onedark"
 soft-wrap.enable = true
 line-number = "relative"
 end-of-line-diagnostics = "hint"
+true-color = true
 
 [editor.inline-diagnostics]
 cursor-line = "error"
