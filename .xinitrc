@@ -57,11 +57,14 @@ xset s off
 xset -dpms
 xset s noblank
 # xmodmap -e "keycode 13 = 4 EuroSign 4 EuroSign"
-# FIXME: We also have .screenlayout/home.sh from 2022 that I forgot about at some point?
-# Do we want to do this in .i3/config instead?
-xrandr --output DP-4 --mode 2560x1440 --rate 143.86 --pos 0x354
-xrandr --output HDMI-0 --right-of DP-4 --rotate right --pos 2560x0
+
 if [ "$(hostname)" = "s2110" ]; then
 	setxkbmap fi
+elif [ "$(hostname)" = "proteus" ]; then
+	# Set display layout (depends on ports used on GPU!)
+	$HOME/.screenlayout/home.sh
+	# Set cursor size. It used to be this size by default, but now
+	# I need to specify it in this file for some reason.
+	xrdb $HOME/.Xresources
 fi
 exec i3

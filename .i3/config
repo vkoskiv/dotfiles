@@ -22,10 +22,7 @@ font pango:monospace 8
 
 # Set up keymap and display arrangement
 exec --no-startup-id setxkbmap -model pc105 -layout fi -option caps:escape
-#exec xrandr --output HDMI-0 --right-of DP-2
 #exec --no-startup-id /home/vkoskiv/.screenlayout/home.sh
-#exec --no-startup-id xrandr --output DP-4 --mode 2560x1440 --rate 143.86
-#exec --no-startup-id xrandr --output HDMI-0 --right-of DP-4 --rotate right --pos 0x0
 
 # Disable display power saving
 exec --no-startup-id xset -dpms
@@ -140,8 +137,8 @@ set $ws9 "9"
 set $ws10 "10"
 
 # Assign workspaces correctly
-workspace $ws1 output DP-2
-workspace $ws2 output HDMI-0
+workspace $ws1 output DP-0
+workspace $ws2 output DVI-D-0
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
