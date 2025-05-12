@@ -206,6 +206,8 @@ for_window [class="qemu-system-x86_64" instance="qemu-system-x86_64"] floating e
 
 # Experimental, popups should show up as floating too
 for_window [window_role="pop-up"] floating enable
+# Also float pavucontrol
+for_window [title="Volume Control"] floating enable
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
