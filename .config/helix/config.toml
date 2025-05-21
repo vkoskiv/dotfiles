@@ -9,9 +9,7 @@ true-color = true
 cursor-line = "error"
 
 [keys.normal]
-#space.o = ":sh ls"
-#y = "yank_main_selection_to_clipboard"
-#p = "paste_clipboard_before"
+space.m = "@miw:sh man <C-r>..3<ret>"
 
 [editor.cursor-shape]
 insert = "bar"
