@@ -9,7 +9,11 @@ true-color = true
 cursor-line = "error"
 
 [keys.normal]
-space.m = "@miw:sh man <C-r>..3<ret>"
+space.m = "@miw:sh man 3 %{selection}<ret>"
+space.B = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}"
+
+[keys.normal."+"]
+m = ":run-shell-command make"
 
 [editor.cursor-shape]
 insert = "bar"
