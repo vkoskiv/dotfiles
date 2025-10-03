@@ -21,6 +21,31 @@ set -e
 X11_DEPS="xdg-open maim"
 WAYLAND_DEPS="xdg-open grim slurp"
 
+PSHOT_SESSION_TYPE=
+if [ -n "$WAYLAND_DISPLAY" ]; then
+  PSHOT_SESSION_TYPE="wayland"
+elif [ -n "$DISPLAY" ]; then
+  PSHOT_SESSION_TYPE="x11"
+else
+  PSHOT_SESSION_TYPE="$XDG_SESSION_TYPE"
+fi
+
+check_deps() {
+  for dep in $1; do
+    if test ! -f "$(which $dep 2>/dev/null)"; then
+      echo "$dep(1) not installed"
+      return 1
+    fi
+  done
+  return 0
+}
+
+case $PSHOT_SESSION_TYPE in
+  "x11") check_deps "$X11_DEPS" || exit 1 ;;
+  "wayland") check_deps "$WAYLAND_DEPS" || exit 1 ;;
+  *) echo "This script works with X11 and Wayland, but you are running '$PSHOT_SESSION_TYPE'" && exit 1 ;;
+esac
+
 if [ -z "${SHOT_HOST}" ]; then
   echo "SHOT_HOST not set"
   exit 1
@@ -47,19 +72,9 @@ y_n() {
   done
 }
 
-check_deps() {
-  for dep in $1; do
-    if test ! -f "$(which $dep 2>/dev/null)"; then
-      echo "$dep(1) not installed"
-      return 1
-    fi
-  done
-  return 0
-}
-
 take_screenshot() {
   FILENAME=$(mktemp "/tmp/$(date -u +%Y-%m-%dT%H:%M:%S%Z)"-XXXXXXXX.png)
-  case $XDG_SESSION_TYPE in
+  case $PSHOT_SESSION_TYPE in
     "x11")
       maim -sq > "$FILENAME"
     ;;
@@ -77,12 +92,6 @@ publish() {
     && xdg-open "${SHOT_URL_BASE}$(basename "$1")"\
     && echo "Published ${SHOT_URL_BASE}$(basename "$1")"
 }
-
-case $XDG_SESSION_TYPE in
-  "x11") check_deps "$X11_DEPS" || exit 1 ;;
-  "wayland") check_deps "$WAYLAND_DEPS" || exit 1 ;;
-  *) echo "This script works with X11 and Wayland, but you are running '$XDG_SESSION_TYPE'" && exit 1 ;;
-esac
 
 if [ $# -eq 0 ]; then
   FILE=$(take_screenshot)
