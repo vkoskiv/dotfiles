@@ -54,3 +54,22 @@ export SHOT_URL_BASE=https://vkoskiv.com/screenshots/
 export LS_COLORS="$(vivid generate one-dark)"
 # source ~/.bash_preexec.sh
 # eval "$(atuin init bash)"
+
+# Nice objdump shortcut for the invocation I almost always use
+# odi == "ObjDump Intel"
+function odi() {
+	objdump --disassembler-color=on -M intel -d "$1" | less -R
+}
+export -f odi
+
+# Find kernel symbols and get signature with bpftrace(8)
+function kfuncs() {
+	SYM=$(fzf </proc/kallsyms | awk '{ print $3 }')
+	sudo bpftrace -lv "fentry:$SYM"
+}
+export kfuncs
+# Correct misspellings with `cd`
+shopt -s cdspell
+
+# Automatically prepend cd when needed.
+shopt -s autocd
