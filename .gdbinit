@@ -1,3 +1,4 @@
+python import gdb.printing
 set debuginfod enabled on
 set breakpoint pending on
 set disassembly-flavor intel
@@ -11,3 +12,5 @@ set history remove-duplicates unlimited
 set history filename ~/.gdb_history
 set pagination off
 set debug jit on
+set print pretty on
+tui new-layout all regs 4 src 25 asm 25 cmd 10
