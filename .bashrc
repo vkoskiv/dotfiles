@@ -48,7 +48,7 @@ export STEAMVR_VRENV=/home/vkoskiv/.local/share/Steam/steamapps/common/SteamVR/b
 export MOZ_USE_XINPUT2=1
 
 export SHOT_HOST=triton
-export SHOT_WWW_PATH=/var/www/vkoskiv/screenshots/
+export SHOT_WWW_PATH=/var/www/vkoskiv.com.extra/screenshots/
 export SHOT_URL_BASE=https://vkoskiv.com/screenshots/
 
 export LS_COLORS="$(vivid generate one-dark)"
