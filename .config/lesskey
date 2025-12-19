@@ -1,3 +1,4 @@
 #env
 ## Show search result in middle of screen, easier to see context that way
-LESS = -R -j.5 
+## And -i to make search case-insensitive
+LESS = -R -i -j.5
