@@ -1,9 +1,11 @@
 theme = "onedark"
 [editor]
 soft-wrap.enable = true
+soft-wrap.wrap-indicator = ">>>"
 line-number = "relative"
 end-of-line-diagnostics = "hint"
 true-color = true
+cursorline = true
 
 [editor.inline-diagnostics]
 cursor-line = "error"
