@@ -18,9 +18,13 @@ alias make='/usr/bin/make -j8'
 alias shot='import png:- | xclip -selection clipboard -t image/png'
 alias cbqr='xclip -o -s c | qrencode -o - | feh --force-aliasing -ZF -'
 alias vlc='vlc --avcodec-hw=vaapi'
+alias gd='git diff'
+alias gc='git checkout'
 alias gdc='git diff --cached'
+alias gap='git add -p'
 alias pacman='pacman --color=auto'
 alias feh='feh --keep-zoom-vp'
+alias dmesg='dmesg -wT'
 
 if [ -n "$DESKTOP_SESSION" ]; then
 	eval $(gnome-keyring-daemon --start)
