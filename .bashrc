@@ -38,9 +38,10 @@ export BROWSER=firefox
 # Set a non-asinine history size
 # 2024-10-29 - Set to 1mill + other options
 # to improve shared history.
-export HISTCONTROL=ignoredups:erasedups
-export HISTSIZE=1000000
-export HISTFILESIZE=1000000
+export HISTCONTROL=ignoreboth
+export HISTTIMEFORMAT="%FT%T "
+export HISTSIZE=-1
+export HISTFILESIZE=-1
 shopt -s histappend
 
 export GPG_TTY=$(tty)
