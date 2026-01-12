@@ -6,7 +6,9 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=always'
+alias ls='ls --color=auto'
+alias lsc='ls --color=always'
+alias lss='ls --color=always | less -R'
 export PS1="\[\033[38;5;46m\]> \[$(tput sgr0)\]"
 export _JAVA_AWT_WM_NONREPARENTING=1
 alias vol='pavucontrol'
