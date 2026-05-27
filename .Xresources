@@ -4,12 +4,15 @@ XTerm.vt100.metaSendsEscape: true
 XTerm.vt100.alternateScroll: true
 XTerm.vt100.saveLines: 1000000
 XTerm*utf8: 1
+XTerm*reflowLines: true
 XTerm.vt100.backarrowKey: false
 XTerm.ttyModex: erase ^?
 XTerm.vt100.translations: #override \n\
 	Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
 	Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
 XTerm*font: -*-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1
+XTerm*font1: -*-terminus-medium-*-*-*-17-*-*-*-*-*-iso10646-1
+XTerm*font2: -*-terminus-medium-*-*-*-22-*-*-*-*-*-iso10646-1
 ! special
 *.foreground:   #93a1a1
 *.background:   #002b36
