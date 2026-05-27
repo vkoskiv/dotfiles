@@ -208,7 +208,15 @@ bindsym $mod+r mode "resize"
 #for_window [class=".*"] border pixel 1
 
 # For qemu, I generally want it to show up as a floating window by default (qemu otherwise enables scaling)
-for_window [class="qemu-system-x86_64" instance="qemu-system-x86_64"] floating enable
+for_window [title="QEMU"] floating enable move position 0 px 255 px
+no_focus [title="QEMU"]
+
+# Hack - i3wm doesn't seem to have the ability to set display relative position, so I need to manually
+# grab the offset of my display arrangement from xrandr (+220px y)
+# I expect this to break in fun ways when I change display arrangements or unplug a display.
+# Also added 720x to bochs for when I run both qemu and bochs at the same time, with entr
+for_window [title="Bochs x86 emulator, https://bochs.sourceforge.io/"] move position 720 px 220px
+no_focus [title="Bochs x86 emulator, https://bochs.sourceforge.io/"]
 
 # Experimental, popups should show up as floating too
 for_window [window_role="pop-up"] floating enable
